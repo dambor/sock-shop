@@ -285,8 +285,8 @@ spec:
         key: "scheduling.cast.ai/node-template"
         operator: Equal
         value: sock-shop
-      - key: scheduling.cast.ai/spot
-        operator: Exists
+#      - key: scheduling.cast.ai/spot
+#        operator: Exists
 ---
 apiVersion: v1
 kind: Service
@@ -510,8 +510,8 @@ spec:
         key: "scheduling.cast.ai/node-template"
         operator: Equal
         value: sock-shop
-      - key: scheduling.cast.ai/spot
-        operator: Exists
+#      - key: scheduling.cast.ai/spot
+#        operator: Exists
 ---
 apiVersion: v1
 kind: Service
@@ -730,8 +730,8 @@ spec:
         key: "scheduling.cast.ai/node-template"
         operator: Equal
         value: sock-shop
-      - key: scheduling.cast.ai/spot
-        operator: Exists
+#      - key: scheduling.cast.ai/spot
+#        operator: Exists
 ---
 apiVersion: v1
 kind: Service
@@ -1020,8 +1020,8 @@ spec:
         key: "scheduling.cast.ai/node-template"
         operator: Equal
         value: sock-shop
-      - key: scheduling.cast.ai/spot
-        operator: Exists
+#      - key: scheduling.cast.ai/spot
+#        operator: Exists
 ---
 apiVersion: v1
 kind: Service
