@@ -876,7 +876,7 @@ spec:
       nodeSelector:
           kubernetes.io/os: linux
           app: "sock-shop"
-        tolerations:
+      tolerations:
         - effect: NoSchedule
           key: "scheduling.cast.ai/node-template"
           operator: Equal
