@@ -6,9 +6,9 @@ staticConfig:
     - labelSelector:
         matchLabels:
           app.kubernetes.io/name: ignored-pod
-  forcePodsToSpot:
-    - namespaces:
-        - sock-shop
+  #forcePodsToSpot:
+  #  - namespaces:
+  #      - sock-shop
   forcePodsToOnDemand:
     - namespaces:
         - kube-system
