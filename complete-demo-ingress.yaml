@@ -45,13 +45,6 @@ spec:
         volumeMounts:
         - mountPath: /tmp
           name: tmp-volume
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "100m"
-          limits:
-            memory: "256Mi"
-            cpu: "300m"
       volumes:
         - name: tmp-volume
           emptyDir:
@@ -59,11 +52,11 @@ spec:
       nodeSelector:
         kubernetes.io/os: linux
         app: "sock-shop"
-#      tolerations:
-#      - effect: NoSchedule
-#        key: "scheduling.cast.ai/node-template"
-#        operator: Equal
-#        value: sock-shop
+      tolerations:
+      - effect: NoSchedule
+        key: "scheduling.cast.ai/node-template"
+        operator: Equal
+        value: sock-shop
 #      - key: scheduling.cast.ai/spot
 #        operator: Exists
 ---
@@ -133,11 +126,11 @@ spec:
       nodeSelector:
         kubernetes.io/os: linux
         app: "sock-shop"
-#      tolerations:
-#      - effect: NoSchedule
-#        key: "scheduling.cast.ai/node-template"
-#        operator: Equal
-#        value: sock-shop
+      tolerations:
+      - effect: NoSchedule
+        key: "scheduling.cast.ai/node-template"
+        operator: Equal
+        value: sock-shop
 #      - key: scheduling.cast.ai/spot
 #        operator: Exists
 ---
@@ -209,13 +202,6 @@ spec:
             port: 80
           initialDelaySeconds: 180
           periodSeconds: 3
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "100m"
-          limits:
-            memory: "256Mi"
-            cpu: "300m"
       nodeSelector:
         kubernetes.io/os: linux
         app: "sock-shop"
@@ -1023,11 +1009,11 @@ spec:
       nodeSelector:
         kubernetes.io/os: linux
         app: "sock-shop"
-#      tolerations:
-#      - effect: NoSchedule
-#        key: "scheduling.cast.ai/node-template"
-#        operator: Equal
-#        value: sock-shop
+      tolerations:
+      - effect: NoSchedule
+        key: "scheduling.cast.ai/node-template"
+        operator: Equal
+        value: sock-shop
 #      - key: scheduling.cast.ai/spot
 #        operator: Exists
 ---

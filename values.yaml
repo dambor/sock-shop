@@ -1,6 +1,6 @@
 staticConfig:
   defaultToSpot: false
-  spotPercentageOfReplicaSet: 30
+  spotPercentageOfReplicaSet: 20
   IgnorePodsWithNodeSelectorsAffinities: false
   ignorePods:
     - labelSelector:
