@@ -6,6 +6,8 @@ metadata:
   labels:
     name: carts
   namespace: sock-shop
+  annotations:
+    kubectl.kubernetes.io/restartedAt: "2024-09-24T10:11:00Z" 
 spec:
   replicas: 1
   selector:
