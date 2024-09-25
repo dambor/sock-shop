@@ -7,7 +7,7 @@ metadata:
     name: carts
   namespace: sock-shop
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       name: carts
@@ -62,8 +62,8 @@ spec:
         key: "scheduling.cast.ai/node-template"
         operator: Equal
         value: sock-shop
-      - key: scheduling.cast.ai/spot
-        operator: Exists
+#      - key: scheduling.cast.ai/spot
+#        operator: Exists
 ---
 apiVersion: v1
 kind: Service
@@ -162,7 +162,7 @@ metadata:
     name: catalogue
   namespace: sock-shop
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       name: catalogue
@@ -222,8 +222,8 @@ spec:
         key: "scheduling.cast.ai/node-template"
         operator: Equal
         value: sock-shop
-      - key: scheduling.cast.ai/spot
-        operator: Exists
+#      - key: scheduling.cast.ai/spot
+#        operator: Exists
 ---
 apiVersion: v1
 kind: Service
@@ -309,7 +309,7 @@ metadata:
   name: front-end
   namespace: sock-shop
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       name: front-end
@@ -360,8 +360,8 @@ spec:
         key: "scheduling.cast.ai/node-template"
         operator: Equal
         value: sock-shop
-      - key: scheduling.cast.ai/spot
-        operator: Exists
+#      - key: scheduling.cast.ai/spot
+#        operator: Exists
 ---
 apiVersion: v1
 kind: Service
@@ -388,7 +388,7 @@ metadata:
     name: orders
   namespace: sock-shop
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       name: orders
@@ -436,8 +436,8 @@ spec:
         key: "scheduling.cast.ai/node-template"
         operator: Equal
         value: sock-shop
-      - key: scheduling.cast.ai/spot
-        operator: Exists
+#      - key: scheduling.cast.ai/spot
+#        operator: Exists
 ---
 apiVersion: v1
 kind: Service
@@ -536,7 +536,7 @@ metadata:
     name: payment
   namespace: sock-shop
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       name: payment
@@ -586,8 +586,8 @@ spec:
         key: "scheduling.cast.ai/node-template"
         operator: Equal
         value: sock-shop
-      - key: scheduling.cast.ai/spot
-        operator: Exists
+#      - key: scheduling.cast.ai/spot
+#        operator: Exists
 ---
 apiVersion: v1
 kind: Service
@@ -646,8 +646,8 @@ spec:
         key: "scheduling.cast.ai/node-template"
         operator: Equal
         value: sock-shop
-      - key: scheduling.cast.ai/spot
-        operator: Exists
+#      - key: scheduling.cast.ai/spot
+#        operator: Exists
 ---
 apiVersion: v1
 kind: Service
@@ -674,7 +674,7 @@ metadata:
     name: rabbitmq
   namespace: sock-shop
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       name: rabbitmq
@@ -764,7 +764,7 @@ metadata:
     name: session-db
   namespace: sock-shop
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       name: session-db
@@ -829,7 +829,7 @@ metadata:
     name: shipping
   namespace: sock-shop
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       name: shipping
@@ -900,7 +900,7 @@ metadata:
     name: user
   namespace: sock-shop
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       name: user
