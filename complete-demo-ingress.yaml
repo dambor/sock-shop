@@ -59,11 +59,11 @@ spec:
       nodeSelector:
         kubernetes.io/os: linux
         app: "sock-shop"
-      tolerations:
-      - effect: NoSchedule
-        key: "scheduling.cast.ai/node-template"
-        operator: Equal
-        value: sock-shop
+#      tolerations:
+#      - effect: NoSchedule
+#        key: "scheduling.cast.ai/node-template"
+#        operator: Equal
+#        value: sock-shop
 #      - key: scheduling.cast.ai/spot
 #        operator: Exists
 ---
@@ -133,11 +133,11 @@ spec:
       nodeSelector:
         kubernetes.io/os: linux
         app: "sock-shop"
-      tolerations:
-      - effect: NoSchedule
-        key: "scheduling.cast.ai/node-template"
-        operator: Equal
-        value: sock-shop
+#      tolerations:
+#      - effect: NoSchedule
+#        key: "scheduling.cast.ai/node-template"
+#        operator: Equal
+#        value: sock-shop
 #      - key: scheduling.cast.ai/spot
 #        operator: Exists
 ---
@@ -218,12 +218,12 @@ spec:
             cpu: "300m"
       nodeSelector:
         kubernetes.io/os: linux
-        app: "sock-shop"
-      tolerations:
-      - effect: NoSchedule
-        key: "scheduling.cast.ai/node-template"
-        operator: Equal
-        value: sock-shop
+#        app: "sock-shop"
+#      tolerations:
+#      - effect: NoSchedule
+#        key: "scheduling.cast.ai/node-template"
+#        operator: Equal
+#        value: sock-shop
 #      - key: scheduling.cast.ai/spot
 #        operator: Exists
 ---
@@ -281,12 +281,12 @@ spec:
             cpu: "300m"
       nodeSelector:
         kubernetes.io/os: linux
-        app: "sock-shop"
-      tolerations:
-      - effect: NoSchedule
-        key: "scheduling.cast.ai/node-template"
-        operator: Equal
-        value: sock-shop
+#        app: "sock-shop"
+#      tolerations:
+#      - effect: NoSchedule
+#        key: "scheduling.cast.ai/node-template"
+#        operator: Equal
+#        value: sock-shop
 #      - key: scheduling.cast.ai/spot
 #        operator: Exists
 ---
@@ -356,12 +356,12 @@ spec:
           periodSeconds: 3
       nodeSelector:
         kubernetes.io/os: linux
-        app: "sock-shop"
-      tolerations:
-      - effect: NoSchedule
-        key: "scheduling.cast.ai/node-template"
-        operator: Equal
-        value: sock-shop
+#        app: "sock-shop"
+#      tolerations:
+#      - effect: NoSchedule
+#        key: "scheduling.cast.ai/node-template"
+#        operator: Equal
+#        value: sock-shop
 #      - key: scheduling.cast.ai/spot
 #        operator: Exists
 ---
@@ -432,12 +432,12 @@ spec:
             medium: Memory
       nodeSelector:
         kubernetes.io/os: linux
-        app: "sock-shop"
-      tolerations:
-      - effect: NoSchedule
-        key: "scheduling.cast.ai/node-template"
-        operator: Equal
-        value: sock-shop
+#        app: "sock-shop"
+#      tolerations:
+#      - effect: NoSchedule
+#        key: "scheduling.cast.ai/node-template"
+#        operator: Equal
+#        value: sock-shop
 #      - key: scheduling.cast.ai/spot
 #        operator: Exists
 ---
@@ -506,12 +506,12 @@ spec:
             medium: Memory
       nodeSelector:
         kubernetes.io/os: linux
-        app: "sock-shop"
-      tolerations:
-      - effect: NoSchedule
-        key: "scheduling.cast.ai/node-template"
-        operator: Equal
-        value: sock-shop
+#        app: "sock-shop"
+#      tolerations:
+#      - effect: NoSchedule
+#        key: "scheduling.cast.ai/node-template"
+#        operator: Equal
+#        value: sock-shop
 #      - key: scheduling.cast.ai/spot
 #        operator: Exists
 ---
@@ -582,12 +582,12 @@ spec:
           periodSeconds: 3
       nodeSelector:
         kubernetes.io/os: linux
-        app: "sock-shop"
-      tolerations:
-      - effect: NoSchedule
-        key: "scheduling.cast.ai/node-template"
-        operator: Equal
-        value: sock-shop
+#        app: "sock-shop"
+#      tolerations:
+#      - effect: NoSchedule
+#        key: "scheduling.cast.ai/node-template"
+#        operator: Equal
+#        value: sock-shop
 #      - key: scheduling.cast.ai/spot
 #        operator: Exists
 ---
@@ -642,12 +642,12 @@ spec:
         - containerPort: 80
       nodeSelector:
         kubernetes.io/os: linux
-        app: "sock-shop"
-      tolerations:
-      - effect: NoSchedule
-        key: "scheduling.cast.ai/node-template"
-        operator: Equal
-        value: sock-shop
+#        app: "sock-shop"
+#      tolerations:
+#      - effect: NoSchedule
+#        key: "scheduling.cast.ai/node-template"
+#        operator: Equal
+#        value: sock-shop
 #      - key: scheduling.cast.ai/spot
 #        operator: Exists
 ---
@@ -726,12 +726,12 @@ spec:
             cpu: "300m"
       nodeSelector:
         kubernetes.io/os: linux
-        app: "sock-shop"
-      tolerations:
-      - effect: NoSchedule
-        key: "scheduling.cast.ai/node-template"
-        operator: Equal
-        value: sock-shop
+#        app: "sock-shop"
+#      tolerations:
+#      - effect: NoSchedule
+#        key: "scheduling.cast.ai/node-template"
+#        operator: Equal
+#        value: sock-shop
 #      - key: scheduling.cast.ai/spot
 #        operator: Exists
 ---
@@ -801,12 +801,12 @@ spec:
             cpu: "300m"
       nodeSelector:
         kubernetes.io/os: linux
-        app: "sock-shop"
-      tolerations:
-      - effect: NoSchedule
-        key: "scheduling.cast.ai/node-template"
-        operator: Equal
-        value: sock-shop
+#        app: "sock-shop"
+#      tolerations:
+#      - effect: NoSchedule
+#        key: "scheduling.cast.ai/node-template"
+#        operator: Equal
+#        value: sock-shop
 ---
 apiVersion: v1
 kind: Service
@@ -875,12 +875,12 @@ spec:
             medium: Memory
       nodeSelector:
           kubernetes.io/os: linux
-          app: "sock-shop"
-      tolerations:
-        - effect: NoSchedule
-          key: "scheduling.cast.ai/node-template"
-          operator: Equal
-          value: sock-shop        
+#          app: "sock-shop"
+#      tolerations:
+#        - effect: NoSchedule
+#          key: "scheduling.cast.ai/node-template"
+#          operator: Equal
+#          value: sock-shop        
 ---
 apiVersion: v1
 kind: Service
@@ -955,12 +955,12 @@ spec:
           periodSeconds: 3
       nodeSelector:
         kubernetes.io/os: linux
-        app: "sock-shop"
-      tolerations:
-      - effect: NoSchedule
-        key: "scheduling.cast.ai/node-template"
-        operator: Equal
-        value: sock-shop
+#        app: "sock-shop"
+#      tolerations:
+#      - effect: NoSchedule
+#        key: "scheduling.cast.ai/node-template"
+#        operator: Equal
+#        value: sock-shop
 ---
 apiVersion: v1
 kind: Service
@@ -1023,11 +1023,11 @@ spec:
       nodeSelector:
         kubernetes.io/os: linux
         app: "sock-shop"
-      tolerations:
-      - effect: NoSchedule
-        key: "scheduling.cast.ai/node-template"
-        operator: Equal
-        value: sock-shop
+#      tolerations:
+#      - effect: NoSchedule
+#        key: "scheduling.cast.ai/node-template"
+#        operator: Equal
+#        value: sock-shop
 #      - key: scheduling.cast.ai/spot
 #        operator: Exists
 ---
