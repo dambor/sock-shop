@@ -874,7 +874,13 @@ spec:
           emptyDir:
             medium: Memory
       nodeSelector:
-        kubernetes.io/os: linux
+          kubernetes.io/os: linux
+          app: "sock-shop"
+        tolerations:
+        - effect: NoSchedule
+          key: "scheduling.cast.ai/node-template"
+          operator: Equal
+          value: sock-shop        
 ---
 apiVersion: v1
 kind: Service
