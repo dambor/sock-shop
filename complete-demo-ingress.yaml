@@ -1,4 +1,3 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -7,7 +6,7 @@ metadata:
     name: carts
   namespace: sock-shop
   annotations:
-    kubectl.kubernetes.io/restartedAt: "2024-09-25T10:11:00Z" 
+    kubectl.kubernetes.io/restartedAt: "2024-09-25T10:11:00Z"
 spec:
   replicas: 2
   selector:
@@ -18,12 +17,20 @@ spec:
       labels:
         name: carts
     spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: scheduling.cast.ai/spot
+                operator: Exists
       containers:
       - name: carts
         image: weaveworksdemos/carts:0.4.8
         env:
-         - name: JAVA_OPTS
-           value: -Xms64m -Xmx128m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom -Dspring.zipkin.enabled=false
+        - name: JAVA_OPTS
+          value: -Xms64m -Xmx128m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom -Dspring.zipkin.enabled=false
         resources:
           limits:
             cpu: 300m
@@ -38,17 +45,17 @@ spec:
           runAsUser: 10001
           capabilities:
             drop:
-              - all
+            - all
             add:
-              - NET_BIND_SERVICE
+            - NET_BIND_SERVICE
           readOnlyRootFilesystem: true
         volumeMounts:
         - mountPath: /tmp
           name: tmp-volume
       volumes:
-        - name: tmp-volume
-          emptyDir:
-            medium: Memory
+      - name: tmp-volume
+        emptyDir:
+          medium: Memory
       nodeSelector:
         kubernetes.io/os: linux
         app: "sock-shop"
@@ -59,19 +66,20 @@ spec:
         value: sock-shop
 #      - key: scheduling.cast.ai/spot
 #        operator: Exists
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: carts
   annotations:
-        prometheus.io/scrape: 'true'
+    prometheus.io/scrape: 'true'
   labels:
     name: carts
   namespace: sock-shop
 spec:
   ports:
-    # the port that this service should serve on
+  # the port that this service should serve on
   - port: 80
     targetPort: 80
   selector:
@@ -94,6 +102,14 @@ spec:
       labels:
         name: carts-db
     spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: scheduling.cast.ai/spot
+                operator: Exists
       containers:
       - name: carts-db
         image: mongo
@@ -103,11 +119,11 @@ spec:
         securityContext:
           capabilities:
             drop:
-              - all
+            - all
             add:
-              - CHOWN
-              - SETGID
-              - SETUID
+            - CHOWN
+            - SETGID
+            - SETUID
           readOnlyRootFilesystem: true
         volumeMounts:
         - mountPath: /tmp
@@ -120,9 +136,9 @@ spec:
             memory: "256Mi"
             cpu: "300m"
       volumes:
-        - name: tmp-volume
-          emptyDir:
-            medium: Memory
+      - name: tmp-volume
+        emptyDir:
+          medium: Memory
       nodeSelector:
         kubernetes.io/os: linux
         app: "sock-shop"
@@ -143,7 +159,7 @@ metadata:
   namespace: sock-shop
 spec:
   ports:
-    # the port that this service should serve on
+  # the port that this service should serve on
   - port: 27017
     targetPort: 27017
   selector:
@@ -166,6 +182,14 @@ spec:
       labels:
         name: catalogue
     spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: scheduling.cast.ai/spot
+                operator: Exists
       containers:
       - name: catalogue
         image: weaveworksdemos/catalogue:0.3.5
@@ -186,9 +210,9 @@ spec:
           runAsUser: 10001
           capabilities:
             drop:
-              - all
+            - all
             add:
-              - NET_BIND_SERVICE
+            - NET_BIND_SERVICE
           readOnlyRootFilesystem: true
         livenessProbe:
           httpGet:
@@ -218,13 +242,13 @@ kind: Service
 metadata:
   name: catalogue
   annotations:
-        prometheus.io/scrape: 'true'
+    prometheus.io/scrape: 'true'
   labels:
     name: catalogue
   namespace: sock-shop
 spec:
   ports:
-    # the port that this service should serve on
+  # the port that this service should serve on
   - port: 80
     targetPort: 80
   selector:
@@ -247,14 +271,22 @@ spec:
       labels:
         name: catalogue-db
     spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: scheduling.cast.ai/spot
+                operator: Exists
       containers:
       - name: catalogue-db
         image: weaveworksdemos/catalogue-db:0.3.0
         env:
-          - name: MYSQL_ROOT_PASSWORD
-            value: fake_password
-          - name: MYSQL_DATABASE
-            value: socksdb
+        - name: MYSQL_ROOT_PASSWORD
+          value: fake_password
+        - name: MYSQL_DATABASE
+          value: socksdb
         ports:
         - name: mysql
           containerPort: 3306
@@ -285,7 +317,7 @@ metadata:
   namespace: sock-shop
 spec:
   ports:
-    # the port that this service should serve on
+  # the port that this service should serve on
   - port: 3306
     targetPort: 3306
   selector:
@@ -307,15 +339,22 @@ spec:
         name: front-end
     spec:
       affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: scheduling.cast.ai/spot
+                operator: Exists
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchExpressions:
-                  - key: name
-                    operator: In
-                    values:
-                    - front-end
-              topologyKey: "kubernetes.io/hostname"
+          - labelSelector:
+              matchExpressions:
+              - key: name
+                operator: In
+                values:
+                - front-end
+            topologyKey: "kubernetes.io/hostname"
       containers:
       - name: front-end
         image: weaveworksdemos/front-end:0.3.12
@@ -336,7 +375,7 @@ spec:
           runAsUser: 10001
           capabilities:
             drop:
-              - all
+            - all
           readOnlyRootFilesystem: true
         livenessProbe:
           httpGet:
@@ -366,7 +405,7 @@ kind: Service
 metadata:
   name: front-end
   annotations:
-        prometheus.io/scrape: 'true'
+    prometheus.io/scrape: 'true'
   labels:
     name: front-end
   namespace: sock-shop
@@ -395,12 +434,19 @@ spec:
       labels:
         name: orders
     spec:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+            - key: scheduling.cast.ai/spot
+              operator: Exists
       containers:
       - name: orders
         image: weaveworksdemos/orders:0.4.7
         env:
-         - name: JAVA_OPTS
-           value: -Xms64m -Xmx128m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom -Dspring.zipkin.enabled=false
+        - name: JAVA_OPTS
+          value: -Xms64m -Xmx128m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom -Dspring.zipkin.enabled=false
         resources:
           limits:
             cpu: 500m
@@ -415,17 +461,17 @@ spec:
           runAsUser: 10001
           capabilities:
             drop:
-              - all
+            - all
             add:
-              - NET_BIND_SERVICE
+            - NET_BIND_SERVICE
           readOnlyRootFilesystem: true
         volumeMounts:
         - mountPath: /tmp
           name: tmp-volume
       volumes:
-        - name: tmp-volume
-          emptyDir:
-            medium: Memory
+      - name: tmp-volume
+        emptyDir:
+          medium: Memory
       nodeSelector:
         kubernetes.io/os: linux
         app: "sock-shop"
@@ -442,13 +488,13 @@ kind: Service
 metadata:
   name: orders
   annotations:
-        prometheus.io/scrape: 'true'
+    prometheus.io/scrape: 'true'
   labels:
     name: orders
   namespace: sock-shop
 spec:
   ports:
-    # the port that this service should serve on
+  # the port that this service should serve on
   - port: 80
     targetPort: 80
   selector:
@@ -471,6 +517,13 @@ spec:
       labels:
         name: orders-db
     spec:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+            - key: scheduling.cast.ai/spot
+              operator: Exists
       containers:
       - name: orders-db
         image: mongo
@@ -480,11 +533,11 @@ spec:
         securityContext:
           capabilities:
             drop:
-              - all
+            - all
             add:
-              - CHOWN
-              - SETGID
-              - SETUID
+            - CHOWN
+            - SETGID
+            - SETUID
           readOnlyRootFilesystem: true
         volumeMounts:
         - mountPath: /tmp
@@ -497,9 +550,9 @@ spec:
             memory: "256Mi"
             cpu: "300m"
       volumes:
-        - name: tmp-volume
-          emptyDir:
-            medium: Memory
+      - name: tmp-volume
+        emptyDir:
+          medium: Memory
       nodeSelector:
         kubernetes.io/os: linux
         app: "sock-shop"
@@ -520,7 +573,7 @@ metadata:
   namespace: sock-shop
 spec:
   ports:
-    # the port that this service should serve on
+  # the port that this service should serve on
   - port: 27017
     targetPort: 27017
   selector:
@@ -543,6 +596,13 @@ spec:
       labels:
         name: payment
     spec:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+            - key: scheduling.cast.ai/spot
+              operator: Exists
       containers:
       - name: payment
         image: weaveworksdemos/payment:0.4.3
@@ -560,9 +620,9 @@ spec:
           runAsUser: 10001
           capabilities:
             drop:
-              - all
+            - all
             add:
-              - NET_BIND_SERVICE
+            - NET_BIND_SERVICE
           readOnlyRootFilesystem: true
         livenessProbe:
           httpGet:
@@ -592,13 +652,13 @@ kind: Service
 metadata:
   name: payment
   annotations:
-        prometheus.io/scrape: 'true'
+    prometheus.io/scrape: 'true'
   labels:
     name: payment
   namespace: sock-shop
 spec:
   ports:
-    # the port that this service should serve on
+  # the port that this service should serve on
   - port: 80
     targetPort: 80
   selector:
@@ -621,12 +681,19 @@ spec:
       labels:
         name: queue-master
     spec:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+            - key: scheduling.cast.ai/spot
+              operator: Exists
       containers:
       - name: queue-master
         image: weaveworksdemos/queue-master:0.3.1
         env:
-         - name: JAVA_OPTS
-           value: -Xms64m -Xmx128m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom -Dspring.zipkin.enabled=false
+        - name: JAVA_OPTS
+          value: -Xms64m -Xmx128m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom -Dspring.zipkin.enabled=false
         resources:
           limits:
             cpu: 300m
@@ -652,13 +719,13 @@ kind: Service
 metadata:
   name: queue-master
   annotations:
-        prometheus.io/scrape: 'true'
+    prometheus.io/scrape: 'true'
   labels:
     name: queue-master
   namespace: sock-shop
 spec:
   ports:
-    # the port that this service should serve on
+  # the port that this service should serve on
   - port: 80
     targetPort: 80
   selector:
@@ -683,6 +750,13 @@ spec:
       annotations:
         prometheus.io/scrape: "false"
     spec:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+            - key: scheduling.cast.ai/spot
+              operator: Exists
       containers:
       - name: rabbitmq
         image: rabbitmq:3.6.8-management
@@ -694,12 +768,12 @@ spec:
         securityContext:
           capabilities:
             drop:
-              - all
+            - all
             add:
-              - CHOWN
-              - SETGID
-              - SETUID
-              - DAC_OVERRIDE
+            - CHOWN
+            - SETGID
+            - SETUID
+            - DAC_OVERRIDE
           readOnlyRootFilesystem: true
         resources:
           requests:
@@ -736,14 +810,14 @@ kind: Service
 metadata:
   name: rabbitmq
   annotations:
-        prometheus.io/scrape: 'true'
-        prometheus.io/port: '9090'
+    prometheus.io/scrape: 'true'
+    prometheus.io/port: '9090'
   labels:
     name: rabbitmq
   namespace: sock-shop
 spec:
   ports:
-    # the port that this service should serve on
+  # the port that this service should serve on
   - port: 5672
     name: rabbitmq
     targetPort: 5672
@@ -773,6 +847,13 @@ spec:
       annotations:
         prometheus.io.scrape: "false"
     spec:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+            - key: scheduling.cast.ai/spot
+              operator: Exists
       containers:
       - name: session-db
         image: redis:alpine
@@ -782,11 +863,11 @@ spec:
         securityContext:
           capabilities:
             drop:
-              - all
+            - all
             add:
-              - CHOWN
-              - SETGID
-              - SETUID
+            - CHOWN
+            - SETGID
+            - SETUID
           readOnlyRootFilesystem: true
         resources:
           requests:
@@ -813,7 +894,7 @@ metadata:
   namespace: sock-shop
 spec:
   ports:
-    # the port that this service should serve on
+  # the port that this service should serve on
   - port: 6379
     targetPort: 6379
   selector:
@@ -836,14 +917,22 @@ spec:
       labels:
         name: shipping
     spec:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+            - key: scheduling.cast.ai/spot
+              operator: Exists
+
       containers:
       - name: shipping
         image: weaveworksdemos/shipping:0.4.8
         env:
-         - name: ZIPKIN
-           value: zipkin.jaeger.svc.cluster.local
-         - name: JAVA_OPTS
-           value: -Xms64m -Xmx128m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom -Dspring.zipkin.enabled=false
+        - name: ZIPKIN
+          value: zipkin.jaeger.svc.cluster.local
+        - name: JAVA_OPTS
+          value: -Xms64m -Xmx128m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom -Dspring.zipkin.enabled=false
         resources:
           limits:
             cpu: 300m
@@ -858,19 +947,19 @@ spec:
           runAsUser: 10001
           capabilities:
             drop:
-              - all
+            - all
             add:
-              - NET_BIND_SERVICE
+            - NET_BIND_SERVICE
           readOnlyRootFilesystem: true
         volumeMounts:
         - mountPath: /tmp
           name: tmp-volume
       volumes:
-        - name: tmp-volume
-          emptyDir:
-            medium: Memory
+      - name: tmp-volume
+        emptyDir:
+          medium: Memory
       nodeSelector:
-          kubernetes.io/os: linux
+        kubernetes.io/os: linux
 #          app: "sock-shop"
 #      tolerations:
 #        - effect: NoSchedule
@@ -883,13 +972,13 @@ kind: Service
 metadata:
   name: shipping
   annotations:
-        prometheus.io/scrape: 'true'
+    prometheus.io/scrape: 'true'
   labels:
     name: shipping
   namespace: sock-shop
 spec:
   ports:
-    # the port that this service should serve on
+  # the port that this service should serve on
   - port: 80
     targetPort: 80
   selector:
@@ -913,6 +1002,13 @@ spec:
       labels:
         name: user
     spec:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+            - key: scheduling.cast.ai/spot
+              operator: Exists
       containers:
       - name: user
         image: weaveworksdemos/user:0.4.7
@@ -933,9 +1029,9 @@ spec:
           runAsUser: 10001
           capabilities:
             drop:
-              - all
+            - all
             add:
-              - NET_BIND_SERVICE
+            - NET_BIND_SERVICE
           readOnlyRootFilesystem: true
         livenessProbe:
           httpGet:
@@ -963,13 +1059,13 @@ kind: Service
 metadata:
   name: user
   annotations:
-        prometheus.io/scrape: 'true'
+    prometheus.io/scrape: 'true'
   labels:
     name: user
   namespace: sock-shop
 spec:
   ports:
-    # the port that this service should serve on
+  # the port that this service should serve on
   - port: 80
     targetPort: 80
   selector:
@@ -993,29 +1089,35 @@ spec:
       labels:
         name: user-db
     spec:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+            - key: scheduling.cast.ai/spot
+              operator: Exists
       containers:
       - name: user-db
         image: weaveworksdemos/user-db:0.3.0
-
         ports:
         - name: mongo
           containerPort: 27017
         securityContext:
           capabilities:
             drop:
-              - all
+            - all
             add:
-              - CHOWN
-              - SETGID
-              - SETUID
+            - CHOWN
+            - SETGID
+            - SETUID
           readOnlyRootFilesystem: true
         volumeMounts:
         - mountPath: /tmp
           name: tmp-volume
       volumes:
-        - name: tmp-volume
-          emptyDir:
-            medium: Memory
+      - name: tmp-volume
+        emptyDir:
+          medium: Memory
       nodeSelector:
         kubernetes.io/os: linux
         app: "sock-shop"
@@ -1036,7 +1138,7 @@ metadata:
   namespace: sock-shop
 spec:
   ports:
-    # the port that this service should serve on
+  # the port that this service should serve on
   - port: 27017
     targetPort: 27017
   selector:

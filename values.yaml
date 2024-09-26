@@ -1,16 +1,16 @@
 staticConfig:
   defaultToSpot: false
   spotPercentageOfReplicaSet: 20
-  IgnorePodsWithNodeSelectorsAffinities: false
-  ignorePods:
-    - labelSelector:
-        matchLabels:
-          app.kubernetes.io/name: ignored-pod
+  #IgnorePodsWithNodeSelectorsAffinities: false
+  #ignorePods:
+  #  - labelSelector:
+  #      matchLabels:
+  #        app.kubernetes.io/name: ignored-pod
   #forcePodsToSpot:
   #  - namespaces:
   #      - sock-shop
   forcePodsToOnDemand:
-    - namespaces:
-        - kube-system
-        - default
-        - castai-agent
+  - namespaces:
+    - kube-system
+    - default
+    - castai-agent
