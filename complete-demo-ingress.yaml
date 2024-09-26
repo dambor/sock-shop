@@ -66,7 +66,6 @@ spec:
         value: sock-shop
 #      - key: scheduling.cast.ai/spot
 #        operator: Exists
-
 ---
 apiVersion: v1
 kind: Service
@@ -434,13 +433,14 @@ spec:
       labels:
         name: orders
     spec:
-      nodeAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 1
-          preference:
-            matchExpressions:
-            - key: scheduling.cast.ai/spot
-              operator: Exists
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: scheduling.cast.ai/spot
+                operator: Exists
       containers:
       - name: orders
         image: weaveworksdemos/orders:0.4.7
@@ -517,13 +517,14 @@ spec:
       labels:
         name: orders-db
     spec:
-      nodeAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 1
-          preference:
-            matchExpressions:
-            - key: scheduling.cast.ai/spot
-              operator: Exists
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: scheduling.cast.ai/spot
+                operator: Exists
       containers:
       - name: orders-db
         image: mongo
@@ -596,13 +597,14 @@ spec:
       labels:
         name: payment
     spec:
-      nodeAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 1
-          preference:
-            matchExpressions:
-            - key: scheduling.cast.ai/spot
-              operator: Exists
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: scheduling.cast.ai/spot
+                operator: Exists
       containers:
       - name: payment
         image: weaveworksdemos/payment:0.4.3
@@ -681,13 +683,14 @@ spec:
       labels:
         name: queue-master
     spec:
-      nodeAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 1
-          preference:
-            matchExpressions:
-            - key: scheduling.cast.ai/spot
-              operator: Exists
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: scheduling.cast.ai/spot
+                operator: Exists
       containers:
       - name: queue-master
         image: weaveworksdemos/queue-master:0.3.1
@@ -750,13 +753,14 @@ spec:
       annotations:
         prometheus.io/scrape: "false"
     spec:
-      nodeAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 1
-          preference:
-            matchExpressions:
-            - key: scheduling.cast.ai/spot
-              operator: Exists
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: scheduling.cast.ai/spot
+                operator: Exists
       containers:
       - name: rabbitmq
         image: rabbitmq:3.6.8-management
@@ -847,13 +851,14 @@ spec:
       annotations:
         prometheus.io.scrape: "false"
     spec:
-      nodeAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 1
-          preference:
-            matchExpressions:
-            - key: scheduling.cast.ai/spot
-              operator: Exists
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: scheduling.cast.ai/spot
+                operator: Exists
       containers:
       - name: session-db
         image: redis:alpine
@@ -917,14 +922,14 @@ spec:
       labels:
         name: shipping
     spec:
-      nodeAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 1
-          preference:
-            matchExpressions:
-            - key: scheduling.cast.ai/spot
-              operator: Exists
-
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: scheduling.cast.ai/spot
+                operator: Exists
       containers:
       - name: shipping
         image: weaveworksdemos/shipping:0.4.8
@@ -1002,13 +1007,14 @@ spec:
       labels:
         name: user
     spec:
-      nodeAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 1
-          preference:
-            matchExpressions:
-            - key: scheduling.cast.ai/spot
-              operator: Exists
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: scheduling.cast.ai/spot
+                operator: Exists
       containers:
       - name: user
         image: weaveworksdemos/user:0.4.7
@@ -1089,13 +1095,14 @@ spec:
       labels:
         name: user-db
     spec:
-      nodeAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 1
-          preference:
-            matchExpressions:
-            - key: scheduling.cast.ai/spot
-              operator: Exists
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: scheduling.cast.ai/spot
+                operator: Exists
       containers:
       - name: user-db
         image: weaveworksdemos/user-db:0.3.0

@@ -1,6 +1,11 @@
 staticConfig:
   defaultToSpot: false
-  spotPercentageOfReplicaSet: 20
+  spotPercentageOfReplicaSet: 80
+  forcePodsToOnDemand:
+  - namespaces:
+    - kube-system
+    - default
+    - castai-agent
   #IgnorePodsWithNodeSelectorsAffinities: false
   #ignorePods:
   #  - labelSelector:
@@ -9,8 +14,3 @@ staticConfig:
   #forcePodsToSpot:
   #  - namespaces:
   #      - sock-shop
-  forcePodsToOnDemand:
-  - namespaces:
-    - kube-system
-    - default
-    - castai-agent
